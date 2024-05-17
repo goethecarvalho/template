@@ -50,6 +50,7 @@ public class UsuarioService {
         return new DadosDetalheUsuario(usuario);
     }
 
+    @CacheEvict(value = "listaUsuarios", allEntries = true)
     public DadosDetalheUsuario atualizarUsuario(Long id, DadosUsuario dados) {
         var usuario = repository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
@@ -75,7 +76,9 @@ public class UsuarioService {
         return new DadosDetalheUsuario(usuario);
     }
 
-    public void excluirUsuario(Long id) {
-        repository.deleteById(id);
+    @CacheEvict(value = "listaUsuarios", allEntries = true)
+    public void deletarUsuario(Long id) {
+        var usuario = repository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        repository.delete(usuario);
     }
 }
