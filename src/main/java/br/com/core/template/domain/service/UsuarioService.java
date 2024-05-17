@@ -53,7 +53,17 @@ public class UsuarioService {
     public DadosDetalheUsuario atualizarUsuario(Long id, DadosUsuario dados) {
         var usuario = repository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        DadosDetalheUsuario usuarioAtualizado = new DadosDetalheUsuario(dados);
+        DadosUsuario usuarioAtualizado = new DadosUsuario(
+                dados.id(),
+                dados.nome(),
+                dados.cpf(),
+                dados.data(),
+                dados.email(),
+                dados.login(),
+                dados.senha()
+        );
+
+        usuario.atualizarDados(usuarioAtualizado);
 
         repository.save(usuario);
 

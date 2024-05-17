@@ -16,4 +16,5 @@ public record DadosUsuario(
     public DadosUsuario(String nome, String cpf, LocalDate data, String email, String login, String senha) {
         this(null, nome, cpf, data, email, login,  senha);
     }
+
 }
